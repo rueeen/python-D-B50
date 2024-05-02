@@ -7,4 +7,4 @@ def cambiarNombre(nombre):
     
 cambiarNombre(nombre)
 
-print(nombre)
+print(nombre) #imprime Perico porque nombre dentro de funcion esta en el contexto interno de la funcion
