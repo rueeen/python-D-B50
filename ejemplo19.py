@@ -17,12 +17,14 @@ while True:
     if opcion == '0':
         print('Saliendo de programa...')
         break
+    
     elif opcion == '1':
         print('==== Agregar elemento a lista ====')
         nombre = input('Ingrese un nombre\n')
         #Agrear algo a la lista con metodo .append()
        
         lista_nombres.append(nombre) # Esto agrega el nombre ingresado a la lista
+        # lista_nombres.insert(2, nombre) # Agrega en el indice 2 de la lisast el nombre
         print(f'Se agrego {nombre} a la lista')
         
     elif opcion == '2':
@@ -61,5 +63,5 @@ while True:
         # Para eliminar usamos metodo .pop()
         
         eliminado = lista_nombres.pop(indice) # .pop() ademas retorna el valor eliminado
-        
+        # del lista_nombres[indice] # Eliminando con del
         print(f'Se elimino {eliminado} y la lista quedo como {lista_nombres}')
