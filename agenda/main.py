@@ -5,6 +5,8 @@ Requerimientos agenda
 3. Mi agenda debe permitir modificar el numero de telefono por nombre y apellido. U
 4. Mi agenda debe permitir eliminar contactos por nombre y apellido. D
 '''
+# Para limpiar pantalla utilizaremos el modulo OS
+import os # Permite interactuar con sistema operativo 
 
 # Funcion para buscar un contacto
 def buscar_contacto(nombre, apellido, lista):
@@ -16,6 +18,7 @@ def buscar_contacto(nombre, apellido, lista):
 
 agenda = [] # Lista vacia para guardar contactos
 while True: # Ciclo repetitivo para realizar diferentes acciones
+    os.system('cls') # Ejecuta comando cls para limpiar terminal
     print('==== Menu de opciones ====')
     print('1. Agregar contacto')
     print('2. Mostrar contactos')
@@ -24,20 +27,26 @@ while True: # Ciclo repetitivo para realizar diferentes acciones
     print('0. Salir')
     
     opcion = input('Ingrese la opcion a realizar\n') # Opcion a realizar
-    
+    os.system('cls')
     if opcion == '1': 
         print('==== Crear contacto ====')
-        nombre = input('Ingrese nombre contacto\n').capitalize()
-        apellido = input('Ingrese apellido contacto\n').capitalize()
-        telefono = int(input('Ingrese telefono contacto\n'))
-        #Invocamos funcion
-        respuesta = buscar_contacto(nombre, apellido, agenda)
-        if respuesta is None:
-            contacto = {'nombre':nombre, 'apellido':apellido, 'telefono':telefono}
-            agenda.append(contacto)
-            print(f'Se agrego contacto {nombre} {apellido}')
+        nombre = input('Ingrese nombre contacto\n').capitalize().strip() # " hola " -> "hola"
+        apellido = input('Ingrese apellido contacto\n').capitalize().strip() # "   " -> ""
+        if nombre == '' or apellido == '':
+            print('Nombre y/o apellido vacios')
         else:
-            print('Contacto ya se encuentra registrado')
+            try:
+                telefono = int(input('Ingrese telefono contacto\n'))
+                #Invocamos funcion
+                respuesta = buscar_contacto(nombre, apellido, agenda)
+                if respuesta is None:
+                    contacto = {'nombre':nombre, 'apellido':apellido, 'telefono':telefono}
+                    agenda.append(contacto)
+                    print(f'Se agrego contacto {nombre} {apellido}')
+                else:
+                    print('Contacto ya se encuentra registrado')
+            except:
+                print('No se pueden agregar telefonos con letras')
         
     elif opcion == '2':
         print('==== Lista contactos ====')
@@ -77,5 +86,12 @@ while True: # Ciclo repetitivo para realizar diferentes acciones
             print('Se elimino contacto')
         else:
             print('No se encontro contacto a eliminar')
-        
+            
+    elif opcion == '0':
+        print('Saliendo programa...')
+        break
+    else:
+        print('Opcion ingresada no valida')
+    
+    input('Presione enter para continuar...')
         
