@@ -53,25 +53,59 @@ while True: # Ciclo repetitivo para realizar diferentes acciones
         if len(agenda) == 0:
             print('No hay contactos aun')
         else:
-            for c in agenda: # c representa un diccionario con keys nombre, apellido, telefono
-                print(f'Nombre: {c["nombre"]}')
-                print(f'Apellido: {c["apellido"]}')
-                print(f'Telefono: {c["telefono"]}')
+            print('1. Mostrar todos')
+            print('2. Mostrar por apellido')
+            print('3. Mostrar uno')
+            
+            opcion = input('Ingrese su opcion:\n')
+            
+            if opcion == '1':
+                for c in agenda: # c representa un diccionario con keys nombre, apellido, telefono
+                    print(f'Nombre: {c["nombre"]}')
+                    print(f'Apellido: {c["apellido"]}')
+                    print(f'Telefono: {c["telefono"]}')
+                    print('-----------------------------------')
+                    
+            elif opcion == '2':
+                apellido = input('Ingrese apellido a buscar\n').capitalize().strip()
+                
+                for c in agenda: # c representa un diccionario con keys nombre, apellido, telefono
+                    if c['apellido'] == apellido:
+                        print(f'Nombre: {c["nombre"]}')
+                        print(f'Apellido: {c["apellido"]}')
+                        print(f'Telefono: {c["telefono"]}')
+                        print('-----------------------------------')
+                        
+            elif opcion == '3':
+                nombre = input('Ingrese nombre a buscar\n').capitalize().strip()
+                apellido = input('Ingrese apellido a buscar\n').capitalize().strip()
+                
+                contacto = buscar_contacto(nombre, apellido, agenda)
+                
+                print(f'Nombre: {contacto["nombre"]}')
+                print(f'Apellido: {contacto["apellido"]}')
+                print(f'Telefono: {contacto["telefono"]}')
                 print('-----------------------------------')
         
     elif opcion == '3':
         print('==== Modificar Contacto ====')
-        nombre = input('Ingrese nombre a modificar\n').capitalize()
-        apellido = input('Ingrese apellido a modificar\n').capitalize()
+        nombre = input('Ingrese nombre a modificar\n').capitalize().strip()
+        apellido = input('Ingrese apellido a modificar\n').capitalize().strip()
         
-        respuesta = buscar_contacto(nombre, apellido, agenda)
-        
-        if respuesta is not None:
-            nuevo_telefono = int(input('Ingrese nuevo numero\n'))
-            respuesta['telefono'] = nuevo_telefono
-            print('Se ha modificado contacto')
-        else:
-            print('No se encontro contacto')
+        if nombre == '' or apellido == '':
+            print('Nombre y/o apellido vacios')
+        else:        
+            respuesta = buscar_contacto(nombre, apellido, agenda)
+            
+            if respuesta is not None:
+                try:
+                    nuevo_telefono = int(input('Ingrese nuevo numero\n'))
+                    respuesta['telefono'] = nuevo_telefono
+                    print('Se ha modificado contacto')
+                except:
+                    print('No se pueden agregar telefonos con letras')
+            else:
+                print('No se encontro contacto')
             
     elif opcion == '4':
         print('==== Eliminar contacto ====')
